@@ -1,19 +1,13 @@
-var positionPage = require("./pages/positionPage");
-var cameraPage = require("./pages/cameraPage");
-var mapTypePage = require("./pages/mapTypePage");
-var regionPage = require("./pages/regionPage");
-var maptapPage = require("./pages/maptapPage");
-var cameramovePage = require("./pages/cameramovePage");
-var changeCameraPage = require("./pages/changeCameraPage");
-var markerPage = require("./pages/markerPage");
-var drawer = tabris.create("Drawer");
+var page =  new tabris.Page( {
+  title: "Tabris Maps",
+  topLevel: true
+});
 
-tabris.create("PageSelector").appendTo(drawer);
-positionPage.create().open();
-cameraPage.create();
-mapTypePage.create();
-regionPage.create();
-maptapPage.create();
-cameramovePage.create();
-changeCameraPage.create();
-markerPage.create();
+new esmaps.Map({
+  left: 0, right: 0, top: 0, bottom: 0
+}).on("ready", function() {
+  // show paris with a radius of 2000 meters
+  this.moveToPosition([48.8644458, 2.3589976], 2000);
+}).appendTo(page);
+
+page.open();
